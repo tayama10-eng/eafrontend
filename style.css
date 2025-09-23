@@ -1,0 +1,9 @@
+:root { --bg:#0b0f19; --card:#121826; --text:#e6e9f0; --muted:#98a2b3; --accent:#5b9cff; --border:#1f2937; --radius:16px; }
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP",Arial;}
+.center{text-align:center} .muted{color:var(--muted)} .small{font-size:12px}
+header{padding:40px 16px 10px}
+.container{max-width:1100px;margin:20px auto;padding:0 16px;display:grid;gap:16px;grid-template-columns:repeat(12,1fr)}
+.card{grid-column:span 12;background:linear-gradient(180deg, rgba(255,255,255,.03), transparent 60%), var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+@media(min-width:860px){ .card{grid-column:span 6} }
+input,textarea{width:100%;padding:10px;border-radius:10px;background:#0f1524;border:1px solid #1f2937;color:var(--text)}
+button{padding:10px 14px;border-radius:10px;border:0;background:var(--accent);color:white;font-weight:700;cursor:pointer}
