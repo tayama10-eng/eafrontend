@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ログイン | EA Builder</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <header class="center"><h1>ログイン</h1></header>
+  <main class="container" style="max-width:560px">
+    <div class="card">
+      <label>メール</label><input id="email" type="email"/>
+      <label>パスワード</label><input id="password" type="password"/>
+      <div style="display:flex;gap:10px;margin-top:10px">
+        <button onclick="signin()">ログイン</button>
+        <button onclick="signup()">新規登録</button>
+      </div>
+      <p id="status" class="muted small"></p>
+    </div>
+  </main>
+<script>
+const supabase = window.supabase.createClient(
+  "SUPABASE_URL_REPLACE",
+  "SUPABASE_ANON_REPLACE"
+);
+async function signin(){
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  document.getElementById('status').textContent = error ? ("エラー: "+error.message) : "OK: ログインしました";
+  if(!error) location.href = "generate.html";
+}
+async function signup(){
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const { error } = await supabase.auth.signUp({ email, password });
+  document.getElementById('status').textContent = error ? ("エラー: "+error.message) : "OK: 確認メールを送信しました";
+}
+</script>
+</body>
+</html>
