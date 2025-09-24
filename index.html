@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>自動EAビルダー | ChatGPT×FX 自動売買をもっとカンタンに</title>
+  <meta name="description" content="ChatGPTを活用した自動EAビルダー。MT4/MT5対応のEAをノーコードで作成。はじめての方でも短時間でプロトタイプまで到達できます。">
+
+  <!-- Google サイト所有権確認（必要なら残す） -->
+  <meta name="google-site-verification" content="BIT1u6O3JAGfx4jiBj4rPcCEUDnqTyLhkBcM5kK6Muw" />
+
+  <!-- OGP（任意） -->
+  <meta property="og:title" content="自動EAビルダー | ChatGPT×FX 自動売買をもっとカンタンに">
+  <meta property="og:description" content="MT4/MT5対応のEAをノーコードで作成。はじめての方でも短時間でプロトタイプまで。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tayama10-eng.github.io/eafrontend/">
+
+  <style>
+    :root{
+      --bg:#0b1020; --card:#121933; --fg:#e7ebff; --muted:#b7c0e6;
+      --brand:#5b8cff; --brand-2:#7dd3fc; --ok:#22c55e; --warn:#f59e0b;
+      --shadow:0 10px 30px rgba(0,0,0,.25);
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans JP",system-ui,sans-serif;line-height:1.6}
+    a{color:var(--brand);text-decoration:none}
+    header{position:sticky;top:0;backdrop-filter:saturate(1.3) blur(8px);background:rgba(11,16,32,.7);border-bottom:1px solid #1e2a55;z-index:20}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .logo{display:flex;gap:10px;align-items:center;font-weight:700}
+    .logo-badge{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;box-shadow:var(--shadow)}
+    .logo-badge span{color:#fff;font-weight:900}
+    .nav a.btn{padding:10px 16px;border:1px solid #2b396d;border-radius:10px}
+    .nav a.btn.cta{background:var(--brand);color:#fff;border:none}
+    .hero{padding:72px 0 40px;display:grid;gap:24px;text-align:center}
+    .hero h1{font-size:clamp(26px,4vw,44px);line-height:1.2;margin:0}
+    .hero p{color:var(--muted);margin:0 auto;max-width:720px}
+    .cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+    .btn{display:inline-block;padding:14px 20px;border-radius:12px;background:#1a2550;color:#fff;border:1px solid #2b396d;box-shadow:var(--shadow)}
+    .btn.primary{background:var(--brand);border:none}
+    .badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;color:var(--muted);font-size:14px}
+
+    .grid{display:grid;gap:18px}
+    @media(min-width:900px){.grid.cols-3{grid-template-columns:repeat(3,1fr)} .grid.cols-2{grid-template-columns:1.2fr 1fr}}
+    section{padding:38px 0}
+    .card{background:var(--card);border:1px solid #203064;border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .card h3{margin:6px 0 8px}
+    .list{margin:0;padding:0;list-style:none;display:grid;gap:8px}
+    .list li{display:flex;gap:10px;align-items:flex-start}
+    .dot{width:10px;height:10px;border-radius:999px;background:var(--ok);margin-top:8px;flex:0 0 auto}
+
+    .steps{counter-reset:step}
+    .step{display:flex;gap:14px}
+    .step .no{flex:0 0 36px;height:36px;border-radius:10px;background:#1a2550;border:1px solid #2b396d;display:grid;place-items:center;font-weight:700}
+    .muted{color:var(--muted)}
+    .kpis{display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
+    @media(min-width:700px){.kpis{grid-template-columns:repeat(4,1fr)}}
+    .kpi{background:#0f1733;border:1px solid #22336b;border-radius:12px;padding:16px;text-align:center}
+    .kpi .v{font-size:22px;font-weight:800}
+    .faq details{background:#0f1733;border:1px solid #233569;border-radius:12px;padding:14px}
+    .faq summary{cursor:pointer;font-weight:600}
+    footer{border-top:1px solid #1e2a55;padding:28px 0;color:#9fb1ff80;font-size:14px}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="wrap nav">
+      <div class="logo">
+        <div class="logo-badge"><span>EA</span></div>
+        <span>自動EAビルダー</span>
+      </div>
+      <div class="links">
+        <a class="btn" href="pricing.html">料金</a>
+        <a class="btn" href="login.html">ログイン</a>
+        <a class="btn cta" href="generate.html">EAを作成</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <div class="wrap hero">
+    <h1>ChatGPT×ノーコードで、<br>MT4/MT5用EAを最短で作成</h1>
+    <p>プログラミング未経験でも、戦略の説明文からEAを自動生成。ガイド付きでバックテストまでスムーズに。まずは無料で体験できます。</p>
+    <div class="cta-row">
+      <a class="btn primary" href="generate.html">今すぐEAを作成する</a>
+      <a class="btn" href="pricing.html">料金プランを見る</a>
+      <a class="btn" href="#how">使い方を見る</a>
+    </div>
+    <div class="badges">
+      <span>✅ ノーコード</span>
+      <span>✅ MT4/MT5対応</span>
+      <span>✅ 日本語サポート</span>
+    </div>
+  </div>
+
+  <!-- Social proof / KPIs -->
+  <section>
+    <div class="wrap kpis">
+      <div class="kpi"><div class="v">数分</div><div class="muted">EA初回生成まで</div></div>
+      <div class="kpi"><div class="v">ガイド付</div><div class="muted">バックテスト手順</div></div>
+      <div class="kpi"><div class="v">3プラン</div><div class="muted">用途で選べる料金</div></div>
+      <div class="kpi"><div class="v">メール対応</div><div class="muted">日本語サポート</div></div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features">
+    <div class="wrap grid cols-3">
+      <div class="card">
+        <h3>ノーコードでEA生成</h3>
+        <p class="muted">戦略の要点（エントリー/決済/指値・逆指値など）を書くだけで、EAの雛形を自動生成。</p>
+        <ul class="list">
+          <li><div class="dot"></div><div>テンプレ戦略からのクイック作成</div></li>
+          <li><div class="dot"></div><div>MT4/MT5向けコード出力</div></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>検証と改善がラク</h3>
+        <p class="muted">生成結果をそのままバックテストへ。改善ポイントもヒント表示。</p>
+        <ul class="list">
+          <li><div class="dot"></div><div>過去検証の手順ガイド</div></li>
+          <li><div class="dot"></div><div>パラメータ調整をサポート</div></li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>安全とリスクの明示</h3>
+        <p class="muted">投資に100%の勝利法はありません。過度な期待を避け、自己責任でご利用ください。</p>
+        <ul class="list">
+          <li><div class="dot"></div><div>資金管理のベーシック解説</div></li>
+          <li><div class="dot"></div><div>リスク注意喚起と免責</div></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how">
+    <div class="wrap grid cols-2">
+      <div class="card">
+        <h3>使い方（3ステップ）</h3>
+        <div class="steps">
+          <div class="step"><div class="no">1</div><div><strong>戦略を入力</strong><div class="muted">エントリー条件・決済条件・時間足などを記述。</div></div></div>
+          <div class="step"><div class="no">2</div><div><strong>EAを生成</strong><div class="muted">MT4/MT5向けのファイルを出力。</div></div></div>
+          <div class="step"><div class="no">3</div><div><strong>テストと改善</strong><div class="muted">バックテスト手順を見ながら最適化。</div></div></div>
+        </div>
+        <div style="margin-top:14px">
+          <a class="btn primary" href="generate.html">無料で試す</a>
+          <a class="btn" href="pricing.html">プラン比較</a>
+        </div>
+      </div>
+      <div class="card">
+        <h3>主な出力（例）</h3>
+        <ul class="list">
+          <li><div class="dot"></div><div>エントリー/エグジットのロジック雛形</div></li>
+          <li><div class="dot"></div><div>パラメータ（Lot, SL/TP, 時間帯など）の定義</div></li>
+          <li><div class="dot"></div><div>ログ出力・簡易エラーハンドリング</div></li>
+        </ul>
+        <p class="muted" style="margin-top:8px">※ 生成コードは参考実装です。実運用前に十分な検証を行ってください。</p>
+      </div>
+    </div>
+  </section>
+
+    <!-- Pricing CTA -->
+  <section>
+    <div class="wrap">
+      <div class="card" style="display:grid;gap:10px;text-align:center">
+        <h3>用途に合わせて選べる料金プラン</h3>
+        <p class="muted">Lite / Pro / Advanced の3プラン。まずは無料から始められます。</p>
+        <div class="cta-row">
+          <a class="btn primary" href="pricing.html">料金プランを見る</a>
+          <a class="btn" href="login.html">アカウント作成</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section>
+    <div class="wrap grid">
+      <div class="card faq">
+        <h3>よくある質問</h3>
+        <details>
+          <summary>本当にプログラミング知識は不要ですか？</summary>
+          <p class="muted">基本的な戦略の要件を文章で入力すればOKです。細かい調整はガイドに沿って行えます。</p>
+        </details>
+        <details>
+          <summary>勝率や利益は保証されますか？</summary>
+          <p class="muted">いいえ。相場にはリスクがあります。実運用前にデモ口座・少額で検証してください。</p>
+        </details>
+        <details>
+          <summary>MT4/MT5のどちらに対応していますか？</summary>
+          <p class="muted">両方に対応できるよう雛形を用意しています。環境によっては調整が必要です。</p>
+        </details>
+        <details>
+          <summary>サポートはありますか？</summary>
+          <p class="muted">メール対応を予定しています。困ったときはまずヘルプドキュメントをご覧ください。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="wrap" style="display:grid;gap:8px">
+      <div>© 2025 自動EAビルダー</div>
+      <div>本サービスは投資助言を目的としたものではありません。市場リスクを理解した上で自己責任でご利用ください。</div>
+      <div>
+        <a href="pricing.html">料金</a> ·
+        <a href="generate.html">EA生成</a> ·
+        <a href="login.html">ログイン</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
